@@ -2,6 +2,10 @@ const express = require('express')
 const axios = require('axios')
 const searchRouter = express.Router()
 
+searchRouter.route('/').get((req, res) => {
+  res.send('Please Enter a Search Term')
+})
+
 searchRouter.route('/:searchTerm').get((req, res) => {
   const searchTerm = req.params.searchTerm
   axios({
