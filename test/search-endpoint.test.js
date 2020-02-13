@@ -1,5 +1,5 @@
 const app = require('../src/app')
-const { makeResults } = require('./results.fixtures')
+const { makeResults } = require('./test-helpers')
 
 describe('SearchRouter', () => {
   const testResults = makeResults()

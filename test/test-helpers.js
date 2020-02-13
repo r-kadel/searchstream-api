@@ -10,7 +10,7 @@ function makeResults() {
           {
             display_name: 'Netflix',
             icon:
-              'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/NetflixIVAUS.png?w=92&auto=compress&app_version=a0041586-5e2a-4a1d-8e92-e9d1d3a9feaf_ersss2020-02-12',
+              'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/NetflixIVAUS.png?w=92&auto=compress&app_version=a0041586-5e2a-4a1d-8e92-e9d1d3a9feaf_ersss2020-02-13',
             id: '5d81fe2fd51bef0f42268f0f',
             name: 'NetflixIVAUS',
             url: 'https://www.netflix.com/title/70298933'
@@ -28,7 +28,7 @@ function makeResults() {
           {
             display_name: 'iTunes',
             icon:
-              'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/iTunesIVAUS.png?w=92&auto=compress&app_version=a0041586-5e2a-4a1d-8e92-e9d1d3a9feaf_ersss2020-02-12',
+              'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/iTunesIVAUS.png?w=92&auto=compress&app_version=a0041586-5e2a-4a1d-8e92-e9d1d3a9feaf_ersss2020-02-13',
             id: '5d80a9a5d51bef861d3740d3',
             name: 'iTunesIVAUS',
             url:
@@ -39,11 +39,37 @@ function makeResults() {
         weight: 0
       }
     ],
-    updated: '2020-02-12T05:14:40+0000',
+    updated: '2020-02-13T05:09:21+0000',
     term: 'bojack',
     status_code: 200,
     variant: 'ivafull'
   }
 }
 
-module.exports = { makeResults }
+function makeUsers() {
+  return [
+    {
+      id: 1,
+      username: 'test-user-1',
+      password: 'password',
+      email: 'newemail@gmail.com',
+      date_created: '2029-01-22T16:28:32.615Z'
+    },
+    {
+      id: 2,
+      username: 'test-user-2',
+      password: 'password',
+      email: 'fakemail@yahoo.com',
+      date_created: '2029-01-22T16:28:32.615Z'
+    }
+  ]
+}
+
+function cleanTable(db) {
+  return db.raw(
+    `TRUNCATE
+      searchstream_users`
+  )
+}
+
+module.exports = { makeResults, makeUsers, cleanTable }
