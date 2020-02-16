@@ -9,7 +9,6 @@ const jsonParser = express.json()
 const serializeUser = user => ({
   id: user.id,
   username: xss(user.username),
-  password: xss(user.password),
   email: xss(user.email),
   date_created: user.date_created
 })
@@ -36,15 +35,33 @@ usersRouter
       }
     }
 
-    UsersService.insertUser(req.app.get('db'), newUser)
-      .then(user => {
-        res
-          .status(201)
-          .location(path.posix.join(req.originalUrl, `/${user.id}`))
-          .json(serializeUser(user))
-      })
-      .catch(next)
-  })
+    UsersService.hasUserWithUserName(req.app.get('db'), username)
+    .then(hasUserWithUserName => {
+      if (hasUserWithUserName)
+        return res.status(400).json({ error: `Username already taken` })
+
+      return UsersService.hashPassword(password)
+       .then(hashedPassword => {
+         const newUser = {
+           username,
+           password: hashedPassword,
+           email,
+           date_created: 'now()',
+         }
+   
+         return UsersService.insertUser(
+           req.app.get('db'),
+           newUser
+         )
+         .then(user => {
+           res.status(201)
+           .location(path.posix.join(req.originalUrl, `/${user.id}`))
+           .json(serializeUser(user))
+         })
+       })
+    })
+    .catch(next)
+})
 
 usersRouter
   .route('/:user_id')
