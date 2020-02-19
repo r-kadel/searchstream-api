@@ -44,7 +44,6 @@ describe('Users Endpoints', function() {
         .expect(res => {
           expect(res.body).to.have.property('id')
           expect(res.body.username).to.eql(newUser.username)
-          expect(res.body.password).to.eql(newUser.password)
           expect(res.body.email).to.eql(newUser.email)
         })
         .expect(res =>
@@ -55,7 +54,6 @@ describe('Users Endpoints', function() {
             .first()
             .then(row => {
               expect(row.username).to.eql(newUser.username)
-              expect(row.password).to.eql(newUser.password)
               expect(row.email).to.eql(newUser.email)
             })
         )
@@ -112,7 +110,6 @@ describe('Users Endpoints', function() {
         const idToUpdate = 2
         const updateUser = {
           username: 'updated user name',
-          password: 'password',
           email: 'updated user email',
         }
         const expectedUser = {
