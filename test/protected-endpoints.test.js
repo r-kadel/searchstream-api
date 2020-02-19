@@ -1,12 +1,13 @@
 const knex = require('knex')
 const app = require('../src/app')
-const { makeUsers, cleanTable, seedUsers, makeAuthHeader } = require('./test-helpers')
+const { makeUsers, cleanTable, makeResults, makeAuthHeader } = require('./test-helpers')
 
 describe.only('Protected endpoints', function() {
   let db
 
   const testUsers = makeUsers()
   const testUser = testUsers[1]
+  const testResults = makeResults()
 
   before('make knex instance', () => {
     db = knex({
@@ -25,7 +26,7 @@ describe.only('Protected endpoints', function() {
   const protectedEndpoints = [
     {
       name: 'GET /api/search/:search_id/',
-      path: '/api/search/1/',
+      path: '/api/search/bojack/',
       method: supertest(app).get,
     },
   ]
@@ -50,6 +51,13 @@ describe.only('Protected endpoints', function() {
         return endpoint.method(endpoint.path)
           .set('Authorization', makeAuthHeader(invalidUser))
           .expect(401, { error: `Unauthorized request` })
+      })
+
+      it(`responds 200 and gets results with valid credentials`, () => {
+        const validUser = testUsers[1]
+        return endpoint.method(endpoint.path)
+        .set('Authorization', makeAuthHeader(validUser))
+        .expect(200, testResults)
       })
     })
   })
