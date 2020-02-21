@@ -8,4 +8,3 @@ module.exports = {
     JWT_SECRET: process.env.JWT_SECRET || 'change-this-secret',
     JWT_EXPIRY: process.env.JWT_EXPIRY || '1500s',
   }
-  
