@@ -24,12 +24,7 @@ describe('Auth Endpoints', function() {
   afterEach('cleanup', () => cleanTable(db))
 
   describe(`POST /api/auth/login`, () => {
-    beforeEach('insert users', () =>
-    seedUsers(
-      db,
-      testUsers,
-    )
-  )
+    beforeEach('insert users', () => seedUsers(db, testUsers))
 
     const requiredFields = ['username', 'password']
 
@@ -71,7 +66,6 @@ describe('Auth Endpoints', function() {
     })
 
     it(`responds 200 and JWT auth token using secret when valid credentials`, () => {
-      
       const userValidCreds = {
         username: testUser.username,
         password: testUser.password

@@ -3,6 +3,7 @@ const AuthService = require('./auth-service')
 function requireAuth(req, res, next) {
   const authToken = req.get('Authorization') || ''
 
+  // make sure there is a jwt bearer sent with request
   let bearerToken
   if (!authToken.toLowerCase().startsWith('bearer ')) {
     return res.status(401).json({ error: 'Missing bearer token' })
@@ -10,6 +11,7 @@ function requireAuth(req, res, next) {
     bearerToken = authToken.slice(7, authToken.length)
   }
 
+  // verifies the JWT is valid
   try {
     const payload = AuthService.verifyJwt(bearerToken)
 

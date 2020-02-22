@@ -35,36 +35,36 @@ usersRouter
       }
     }
 
+    // no duplicate usernames
     UsersService.hasUserWithUserName(req.app.get('db'), username)
-    .then(hasUserWithUserName => {
-      if (hasUserWithUserName)
-        return res.status(400).json({ error: `Username already taken` })
+      .then(hasUserWithUserName => {
+        if (hasUserWithUserName)
+          return res.status(400).json({ error: `Username already taken` })
 
-      return UsersService.hashPassword(password)
-       .then(hashedPassword => {
-         const newUser = {
-           username,
-           password: hashedPassword,
-           email,
-           date_created: 'now()',
-         }
-   
-         return UsersService.insertUser(
-           req.app.get('db'),
-           newUser
-         )
-         .then(user => {
-           res.status(201)
-           .location(path.posix.join(req.originalUrl, `/${user.id}`))
-           .json(serializeUser(user))
-         })
-       })
-    })
-    .catch(next)
-})
+        return UsersService.hashPassword(password).then(hashedPassword => {
+          const newUser = {
+            username,
+            password: hashedPassword,
+            email,
+            date_created: 'now()'
+          }
+
+          return UsersService.insertUser(req.app.get('db'), newUser).then(
+            user => {
+              res
+                .status(201)
+                .location(path.posix.join(req.originalUrl, `/${user.id}`))
+                .json(serializeUser(user))
+            }
+          )
+        })
+      })
+      .catch(next)
+  })
 
 usersRouter
   .route('/:user_id')
+  // check for user id
   .all((req, res, next) => {
     UsersService.getById(req.app.get('db'), req.params.user_id)
       .then(user => {
@@ -92,6 +92,7 @@ usersRouter
     const { username, password, email } = req.body
     const userToUpdate = { username, password, email }
 
+    //make sure something is being patched
     const numberOfValues = Object.values(userToUpdate).filter(Boolean).length
     if (numberOfValues === 0)
       return res.status(400).json({

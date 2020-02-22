@@ -3,6 +3,7 @@ const axios = require('axios')
 const searchRouter = express.Router()
 const { requireAuth } = require('../auth/jwt-auth')
 
+//incase the request somehow gets sent without any search term
 searchRouter.route('/').get((req, res) => {
   res.send('Please Enter a Search Term')
 })
