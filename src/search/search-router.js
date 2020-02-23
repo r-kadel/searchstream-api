@@ -7,7 +7,7 @@ const { requireAuth } = require('../auth/jwt-auth')
 searchRouter.route('/').get((req, res) => {
   res.send('Please Enter a Search Term')
 })
-
+//requires an axios call to the utelly api
 searchRouter
   .route('/:searchTerm')
   .all(requireAuth)

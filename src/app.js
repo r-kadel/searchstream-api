@@ -13,7 +13,7 @@ const authRouter = require('./auth/auth-router')
 const app = express()
 
 const morganOption = NODE_ENV === 'production' ? 'tiny' : 'common'
-
+// set client origin in config to local host for testing locally
 app.use(morgan(morganOption))
 app.use(helmet())
 app.use(
