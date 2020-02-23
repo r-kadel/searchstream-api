@@ -19,14 +19,14 @@ The API is powered by Heroku and is set up to take POST requests from the client
 
 The API is built in node.js and is an express server. It uses knex to work with the postgresql database. bcryptjs is used to hash passwords and compare them on certain requests for user protection, and jsonwebtoken is used for authentication on the client end.
 
-### API End Points
+## API End Points
 
 
-## /api/search/:searchterm
+### /api/search/:searchterm
   The search end point recieves a get request from the client with the term to search for included in the end point url, that term is then used to make another request to the utelly API and return the results back to the client
 
   inputs
-
+```
   method: 'GET',
     url:
       'https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup',
@@ -40,7 +40,7 @@ The API is built in node.js and is an express server. It uses knex to work with 
       term: searchTerm,
       country: [two character country code]
     }
-
+```
     outputs a json response(200) which is sent to the client to be stored as an array of movie/show objects
 
   /api/auth
@@ -68,6 +68,7 @@ The API is built in node.js and is an express server. It uses knex to work with 
   The users end point is used internally to set up, edit, and get data from the database and is not for public use. It allows for adding users to the database, editing their information, deleting or viewing all of the stored users
 
   /api/users
+  
    .route('/')
     .get('returns all users in the database)
 
