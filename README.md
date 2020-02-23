@@ -1,7 +1,7 @@
 ## SearchStream - Content Search by platform
 
 ### Available at https://searchstream.r-kadel.now.sh/
-### Back end repo is available at https://github.com/r-kadel/searchstream-api
+### Front end repo is available at https://github.com/r-kadel/searchstream
 
 
 Tired of searching through hundreds of videos through your tens of video streaming services? SearchStream was designed for you to quickly locate the content you want, withought all the clutter and wasted time in a traditional google search.
