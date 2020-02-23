@@ -5,9 +5,9 @@
 
 Tired of searching through hundreds of videos through your tens of video streaming services? SearchStream was designed for you to quickly locate the content you want, withought all the clutter and wasted time in a traditional google search.
 
-![ScreenShot](./public/screenshots/searchstream_landing.png)
-![ScreenShot](./public/screenshots/searchstream.png)
-![ScreenShot](./public/screenshots/searchstream_search.png)
+![ScreenShot](./screenshots/searchstream_landing.png)
+![ScreenShot](./screenshots/searchstream.png)
+![ScreenShot](./screenshots/searchstream_search.png)
 
 A user logs in to their account and is immediately able to search for any TV show or movie they can think of. If we can't find it we will let you know, otherwise you get a list of possible streaming service providers that you can use to watch your favorite movies or shows!
 
@@ -68,7 +68,7 @@ The API is built in node.js and is an express server. It uses knex to work with 
   The users end point is used internally to set up, edit, and get data from the database and is not for public use. It allows for adding users to the database, editing their information, deleting or viewing all of the stored users
 
   /api/users
-  
+
    .route('/')
     .get('returns all users in the database)
 
