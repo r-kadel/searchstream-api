@@ -1,18 +1,18 @@
-const express = require('express')
-const axios = require('axios')
-const searchRouter = express.Router()
-const { requireAuth } = require('../auth/jwt-auth')
+const express = require('express');
+const axios = require('axios');
+const searchRouter = express.Router();
+const { requireAuth } = require('../auth/jwt-auth');
 
 //incase the request somehow gets sent without any search term
 searchRouter.route('/').get((req, res) => {
-  res.send('Please Enter a Search Term')
-})
+  res.send('Please Enter a Search Term');
+});
 //requires an axios call to the utelly api
 searchRouter
   .route('/:searchTerm')
   .all(requireAuth)
   .get((req, res) => {
-    const searchTerm = req.params.searchTerm
+    const searchTerm = req.params.searchTerm;
     axios({
       method: 'GET',
       url:
@@ -29,11 +29,11 @@ searchRouter
       }
     })
       .then(response => {
-        res.send(response.data)
+        res.send(response.data);
       })
       .catch(error => {
-        console.log(error)
-      })
-  })
+        console.log(error);
+      });
+  });
 
-module.exports = searchRouter
+module.exports = searchRouter;

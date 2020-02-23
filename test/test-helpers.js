@@ -1,5 +1,5 @@
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 function makeResults() {
   return {
@@ -46,7 +46,7 @@ function makeResults() {
     term: 'bojack',
     status_code: 200,
     variant: 'ivafull'
-  }
+  };
 }
 
 function makeUsers() {
@@ -65,36 +65,43 @@ function makeUsers() {
       email: 'fakemail@yahoo.com',
       date_created: '2029-01-22T16:28:32.615Z'
     }
-  ]
+  ];
 }
 
 function seedUsers(db, users) {
   const preppedUsers = users.map(user => ({
     ...user,
     password: bcrypt.hashSync(user.password, 1)
-  }))
-  return db.into('searchstream_users').insert(preppedUsers)
+  }));
+  return db
+    .into('searchstream_users')
+    .insert(preppedUsers)
     .then(() =>
-      db.raw(
-        `SELECT setval('searchstream_users_id_seq', ?)`,
-        [users[users.length - 1].id],
-      )
-    )
+      db.raw(`SELECT setval('searchstream_users_id_seq', ?)`, [
+        users[users.length - 1].id
+      ])
+    );
 }
 
 function cleanTable(db) {
   return db.raw(
     `TRUNCATE
       searchstream_users`
-  )
+  );
 }
 
 function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
   const token = jwt.sign({ id: user.id }, secret, {
     subject: user.username,
-    algorithm: 'HS256',
-  })
-  return `Bearer ${token}`
+    algorithm: 'HS256'
+  });
+  return `Bearer ${token}`;
 }
 
-module.exports = { makeResults, makeUsers, cleanTable, seedUsers, makeAuthHeader }
+module.exports = {
+  makeResults,
+  makeUsers,
+  cleanTable,
+  seedUsers,
+  makeAuthHeader
+};

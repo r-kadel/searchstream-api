@@ -1,13 +1,14 @@
 ## SearchStream - Content Search by platform
 
 ### Available at https://searchstream.r-kadel.now.sh/
-### Front end repo available at https://github.com/r-kadel/searchstream
+### Back end repo is available at https://github.com/r-kadel/searchstream-api
+
 
 Tired of searching through hundreds of videos through your tens of video streaming services? SearchStream was designed for you to quickly locate the content you want, withought all the clutter and wasted time in a traditional google search.
 
-![ScreenShot](./screenshots/searchstream_landing.png)
-![ScreenShot](./screenshots/searchstream.png)
-![ScreenShot](./screenshots/searchstream_search.png)
+![ScreenShot](./public/screenshots/searchstream_landing.png)
+![ScreenShot](./public/screenshots/searchstream.png)
+![ScreenShot](./public/screenshots/searchstream_search.png)
 
 A user logs in to their account and is immediately able to search for any TV show or movie they can think of. If we can't find it we will let you know, otherwise you get a list of possible streaming service providers that you can use to watch your favorite movies or shows!
 
@@ -19,10 +20,10 @@ The API is powered by Heroku and is set up to take POST requests from the client
 
 The API is built in node.js and is an express server. It uses knex to work with the postgresql database. bcryptjs is used to hash passwords and compare them on certain requests for user protection, and jsonwebtoken is used for authentication on the client end.
 
-## API End Points
 
+### API End Points Docs
 
-### /api/search/:searchterm
+## /api/search/:searchterm
   The search end point recieves a get request from the client with the term to search for included in the end point url, that term is then used to make another request to the utelly API and return the results back to the client
 
   inputs
@@ -44,6 +45,7 @@ The API is built in node.js and is an express server. It uses knex to work with 
     outputs a json response(200) which is sent to the client to be stored as an array of movie/show objects
 
   /api/auth
+
   This is the authentication route with only one endpoint, a user post request with credentials that are validated against the username and password stored on the server. If sucessful the server sends a 200 response code and a JWT to the client to validate access to the search endpoint
   
     post('/login')
@@ -89,6 +91,7 @@ The API is built in node.js and is an express server. It uses knex to work with 
       }
 
   /api/users/:userId
+  
     .route('/:user_id')
         .get(id) 
           gets the data for the user with the specified id from the requested ID in the endpoint and returns it
@@ -105,8 +108,3 @@ The API is built in node.js and is an express server. It uses knex to work with 
 	            "email": "newEmail@hotmail.com"
             }
           
-
-
-
-
-
